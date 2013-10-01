@@ -1,0 +1,96 @@
+<ui:composition template="./six_dark_template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="head">
+        <meta name="description" content="Häufig gestellte Fragen und die passenden Antworten rund um die Benutzung des VCounters." />
+        <title>Häufig gestellte Fragen | VCounter</title>
+        <script src="./resources/js/vcounter.faq.js" type="text/javascript"></script>
+    </ui:define>
+    <ui:define name="site_content">
+        <div class="content">
+            <h1>Häufig gestellte Fragen</h1>
+            <ol class="accordion stretched">
+                <li>
+                    <strong>Was ist VCounter?</strong>
+                    <p>
+                        Der Dienst VCounter fällt in die Kategorie der Besucherzähler. Mit ihm kann der Betreiber einer Webseite die Aufrufzahlen seiner Webseite erfassen und auswerten.
+                    </p>
+                </li>
+                <li>
+                    <strong>Was unterscheidet VCounter von anderen Besucherzählern?</strong>
+                    <p>
+                        Die meisten anderen Anbieter von Besucherzählern setzen für die Erfassung der Besucherzahlen JavaScript ein. In der heutigen Zeit kann jedoch vieles was früher nur durch den Einsatz von JavaScript erreicht werden konnte auch durch Technologien wie <h:outputLink value="http://de.wikipedia.org/wiki/HTML5">HTML5</h:outputLink> und <h:outputLink value="http://de.wikipedia.org/wiki/Cascading_Style_Sheets">CSS3</h:outputLink> umgesetzt werden.
+                        Nicht zuletzt wird der Anteil der Internetnutzer, die aus Sicherheitsgründen die Ausführung von JavaScript in ihrem Browser abgeschaltet haben, immer größer. Ziel von VCounter ist es diesen Trend zu unterstützen und einen Besucherzähler zu entwickeln, dessen Besuchererfassung ohne den Einsatz von JavaScript funktioniert. 
+                        Der vom Webmaster in die Webseite einzubauende Code beschränkt sich daher auf eine simple Grafik mit Link zur Statistik.
+                    </p>
+                </li>
+                <li>
+                    <strong>Fallen für die Nutzung von VCounter Kosten an?</strong>
+                    <p>
+                        Nein, sämtliche von VCounter angebotenen Dienste sind für den Webmaster kostenlos nutzbar.
+                    </p>
+                </li>
+                <li>
+                    <strong>Muss ich mich irgendwo registrieren?</strong>
+                    <p>
+                        Eine Registrierung ist nicht erforderlich. Baue den VCounter Code einfach an einer beliebigen Stelle deiner Webseite ein und schon ist dein Besucherzähler einsatzbereit. Ich empfehle dir den Code z.B. in den Footer einzubetten.
+                    </p>
+                </li>
+                <li>
+                    <strong>Kann ich den VCounter an das Design meiner Webseite anpassen?</strong>
+                    <p>
+                        Indirekt. DasVCounter Logo steht in verschiedenen Farbschemas zur Verfügung. Sicherlich ist auch eins im Stil deiner Webseite dabei.
+                        Alternativ kann auch ein unsichtbarer VCounter eingebunden werden.
+                    </p>
+                </li>
+                <li>
+                    <strong>Ich finde trotzdem kein passendes Design. Gibt es auch einen unsichtbaren Zähler?</strong>
+                    <p>
+                        Neben den vorgeschlagenen Designs gibt es auch die Möglichkeit einen unsichtbaren VCounter zu nutzen. 
+                        Wähle dazu in der Designauswahl die Option "Versteckt" aus.
+                    </p>
+                </li>
+                <li>
+                    <strong>Wo erreiche ich meine Statistik?</strong>
+                    <p>
+                        Die Zugriffsstatistiken deines VCounters kannst du direkt über den Link deines VCounter Logos erreichen.
+                        Für versteckte VCounter wird der Link während der Generierung angezeigt. In diesem Fall empfielt es sich den Link zur Statistik im Browser abzuspeichern.
+                    </p>
+                </li>
+                <li>
+                    <strong>Welche Informationen werden in der Statistik angezeigt?</strong>
+                    <p>
+                        Die Statistik liefert Informationen über die beiden wichtigsten Kennzahlen deiner Webseite: Die Zahl der eindeutigen Besucher (Unique Visits) und die Anzahl der Seitenaufrufe (Page Impressions).
+                        Diese beiden Kennzahlen kannst du live für den heutigen Tag als auch für die Vergangenheit auswerten. 
+                        Schau dir dazu einfach die <h:outputLink value="stat.xhtml"><h:outputText value="Beispielstatistik"></h:outputText><f:param name="id" value="1"></f:param></h:outputLink> an.<br />
+                        Unterhalb der Übersicht findest du Links zu weiteren detaillierteren Statistiken (z.B. <h:outputLink value="detail_days.xhtml"><h:outputText value="Top Tage"></h:outputText><f:param name="id" value="1"></f:param><f:param name="t" value="all"></f:param></h:outputLink>, <h:outputLink value="detail_browser.xhtml"><h:outputText value="Top Browser"></h:outputText><f:param name="id" value="1"></f:param><f:param name="t" value="today"></f:param></h:outputLink>, <h:outputLink value="detail_ips.xhtml"><h:outputText value="Top IPs"></h:outputText><f:param name="id" value="1"></f:param><f:param name="t" value="today"></f:param></h:outputLink>, ...)
+                    </p>
+                </li>
+                <li>
+                    <strong>Warum zeigt mein VCounter mehr Page Impressions als Unique Visits?</strong>
+                    <p>
+                        Das liegt in der unterschiedlichen Definition der beiden Größen:
+                        Eine <h:outputLink value="http://de.wikipedia.org/wiki/Seitenabruf">Page Impression</h:outputLink> ist ein einzelner Aufruf deiner Webseite. Wenn also ein Besucher 5 Unterseiten besucht, so hat der VCounter für diesen Besucher 5 Page Impressions registriert.
+                        Ein <h:outputLink value="http://de.wikipedia.org/wiki/Unique_Visit">Unique Visit</h:outputLink> stellt den Besucher selbst dar. Im obigen Szenario wird hier nur ein einziger Besucher registriert, obwohl dieser 5 Seiten aufgerufen hat.
+                    </p>
+                </li>
+                <li>
+                    <strong>Nach welcher Zeit wird ein Benutzer erneut erfasst?</strong>
+                    <p>
+                        Die Reloadsperre beträgt 30 Minuten. Das heißt nach 30 Minuten Inaktivität wird ein Besucher als Unique Visit erneut gezählt.
+                    </p>
+                </li>
+                <li>
+                    <strong>Hilfe, bei mir wird jede Page Impression als neuer Unique Visit gezählt!</strong>
+                    <p>
+                        VCounter unterscheidet anhand eines gesetzen Cookies in deinem Browser ob es sich um einen Erstaufruf oder einen Folgeaufruf deiner Webseite handelt.
+                        Wenn du in deinem Browser die Annahme von Drittanbieter-Cookies verweigert hast, dann funktioniert dieser Mechanismus nicht mehr zuverlässig und es kann zum beschriebenen Verhalten kommen. 
+                    </p>
+                </li>
+            </ol>
+        </div>
+    </ui:define>
+</ui:composition>
+

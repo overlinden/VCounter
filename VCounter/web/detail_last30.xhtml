@@ -1,0 +1,51 @@
+<ui:composition template="./six_dark_template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:define name="head">
+        <script src="./resources/js/jquery.tablesorter.min.js" type="text/javascript"></script>
+        <script src="./resources/js/vcounter.detail.js" type="text/javascript"></script>
+        <meta http-equiv="refresh" content="180" />
+        <meta name="description" content="Übersicht über die Zahl der Besucher die in den letzten 30 Tagen deine Homepage besucht haben." />
+        <title>Detaillierte Besucherstatistik der letzten 30 Tage für VCounter #{detailStatBean.counterId} | VCounter</title>
+    </ui:define>
+    <ui:define name="site_content">
+        <div class="boxes_container">
+            <div class="widebox">
+                <h2>Detaillierte Besucherstatistik der letzten 30 Tage</h2>
+                <h:outputText value="Es wurden noch keine Daten erfasst" rendered="#{empty detailStatBean.last30}"></h:outputText>
+                <h:dataTable value="#{detailStatBean.last30}" var="u" headerClass="table_header" id="last30" class="tablesorter" rendered="#{not empty detailStatBean.last30}">
+                    <h:column>
+                        <f:facet name="header">Tag</f:facet>
+                        <h:outputText value="#{u.day}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Besucher</f:facet>
+                        <h:outputText value="#{u.visitorCount}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Seitenaufrufe</f:facet>
+                        <h:outputText value="#{u.hitCount}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Aufrufe pro Besucher</f:facet>
+                        <h:outputText value="#{u.hitCount / u.visitorCount}">
+                            <f:convertNumber maxFractionDigits="2"></f:convertNumber>
+                        </h:outputText>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </div>
+        <div class="content">
+            <p style="text-align: center; padding: 0px;">
+                <h:outputLink value="stat.xhtml">
+                    <h:outputText value='Übersichtsseite für VCounter #{detailStatBean.counterId}'></h:outputText>
+                    <f:param name="id" value="#{detailStatBean.counterId}"></f:param>
+                </h:outputLink>
+            </p>
+        </div>
+    </ui:define>
+</ui:composition>
+

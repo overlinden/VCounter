@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <meta charset="UTF-8" />
+        <meta name="author" content="Oliver Verlinden" />
+        <meta name="keywords" content="Besucherzähler ohne JavaScript, kotenloser Besucherzähler, kostenloser Counter, Gratis Counter, Zugriffsstatistik, Besucherauswertung" />
+        <meta name="robots" content="all" />
+        <link href="./resources/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="./resources/images/favicon.ico" rel="icon" type="image/x-icon" />
+        <script src="./resources/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="./resources/js/jquery.easing-sooper.js" type="text/javascript"></script>
+        <script src="./resources/js/jquery.sooperfish.js" type="text/javascript"></script>
+        <script src="./resources/js/vcounter.js" type="text/javascript"></script>
+        <ui:insert name="head"></ui:insert>
+    </h:head>
+    
+    <h:body>
+        <div id="main">
+            <header>
+                <div id="logo">
+                    <div id="logo_text">
+                        <h1><a href="/">V<span class="logo_colour">Counter</span></a></h1>
+                        <h2>Der Besucherzähler ohne JavaScript!</h2>
+                    </div>
+                </div>
+                <nav>
+                    <div id="menu_container">
+                        <ul class="sf-menu" id="nav">
+                            <li><h:outputLink value="/">Counter erstellen</h:outputLink></li>
+                            <li><h:outputLink value="faq.xhtml">FAQ</h:outputLink></li>
+                            <li><h:outputLink value="kontaktaufnahme.xhtml">Kontaktaufnahme</h:outputLink></li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <div id="site_content">
+                <ui:insert name="site_content"></ui:insert>
+            </div>
+            <footer>
+                <p>VCounter Script by <a href="http://wps-verlinden.de">WPS Verlinden</a> | <a href="http://www.css3templates.co.uk">design from css3templates.co.uk</a></p>
+            </footer>
+            <div id="wps_footer">
+                <img style="display:none; visibility:hidden;" src="http://vcounter.de/c?id=1&amp;t=6&amp;s=0" alt="VCounter graphic"></img>
+            </div>
+        </div>
+        <p><![CDATA[&nbsp;]]></p>
+    </h:body>
+</html>

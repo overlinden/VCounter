@@ -1,0 +1,73 @@
+<ui:composition template="./six_dark_template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="head">
+        <meta name="google-site-verification" content="MRWatMfy-KghMWZSZ3UjHiMdXwOSHJ2Ds9iCxA_63mQ" />
+        <meta name="description" content="VCounter.de bietet dir einen kostenlosen Besucherzähler ohne JavaScript für deine Webseite. Jetzt Besucherzähler ohne Anmeldung erstellen. Mit 3 Klicks zum eigenen Hit Counter." />
+        <title>VCounter - Der Besucherzähler ohne JavaScript!</title>
+        <script src="./resources/js/vcounter.index.js" type="text/javascript"></script>
+    </ui:define>
+    <ui:define name="site_content">
+        <div class="content">
+            <h1>Willkommen beim einzigartigen Hit Counter ohne JavaScript</h1>
+            <ol id="index_steps">
+                <li>Design für deinen VCounter aussuchen</li>
+                <li>Größe passend zu deiner Webseite festlegen</li>
+                <li>In der Vorschau überprüfen, ob dir dein VCounter gefällt</li>
+                <li>Generierten Code in deine Webseite einbauen</li>
+                <li>Fertig</li>
+            </ol>
+            <p style="padding: 0;">
+                Dein kostenloser Besucherzähler ist sofort einsatzbereit und erfasst von nun an automatisch die Besucherzahlen deiner Webseite. 
+                Überzeuge dich selbst.
+            </p>
+        </div>
+        <div class="boxes_container">
+            <div class="widebox">
+                <h2>Erstelle jetzt deinen eigenen kostenlosen VCounter</h2>
+                <form id="vcounter_form">
+                    <div class="counter_settings">
+                        <p id="type">
+                            <span>Design</span>
+                            <input type="radio" name="t" value="1" checked="checked"> Blau</input>
+                            <input type="radio" name="t" value="2"> Orange</input>
+                            <input type="radio" name="t" value="3"> Gelb</input>
+                            <input type="radio" name="t" value="4"> Grün</input>
+                            <input type="radio" name="t" value="5"> Rot</input>
+                            <input type="radio" name="t" value="6"> Versteckt</input>
+                        </p>
+                        <p id="size">
+                            <span>Größe</span>
+                            <input type="radio" name="s" value="1"> Klein</input>
+                            <input type="radio" name="s" value="2" checked="checked"> Normal</input>
+                            <input type="radio" name="s" value="3"> Groß</input>
+                        </p>
+                        <p id="prev">
+                            <span>Vorschau</span>
+                            <h:outputLink value="stat.xhtml">
+                                <f:param name="id" value="1"></f:param>
+                                <img id="prev_img" src="resources/images/counter/1_2.png" alt="VCounter.de Besucherzähler Vorschau"></img>
+                            </h:outputLink>
+                        </p>
+                        <p>
+                            <span>Dein VCounter Code:</span>
+                            <textarea id="vcounter_code" rows="3" name="vcounter_code">Für die Generierung des Codes wird JavaScript benötigt. Bitte aktivieren JavaScript in deinem Browser.</textarea>
+                        </p>
+                        <p id="stat">
+                            <span>Dein Link zur Statistik:</span>
+                            <textarea id="stat_link" rows="3" name="stat_link">Für die Generierung des Links wird JavaScript benötigt. Bitte aktivieren JavaScript in deinem Browser.</textarea>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="content">
+            <p>
+                Welche Informationen dir in den Statistiken zur Verfügung stehen, kannst du in den <h:outputLink value="faq.xhtml">FAQ</h:outputLink> nachlesen. <br />
+                Oder du schaust dir die <h:outputLink value="stat.xhtml"><h:outputText value="Beispielstatistik"></h:outputText><f:param name="id" value="1"></f:param></h:outputLink> an.
+            </p>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,82 @@
+<ui:composition template="./six_dark_template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:define name="head">
+        <script src="./resources/js/jquery.tablesorter.min.js" type="text/javascript"></script>
+        <script src="./resources/js/vcounter.detail.js" type="text/javascript"></script>
+        <meta http-equiv="refresh" content="180" />
+        <meta name="description" content="Die Top 10 der am häufigsten erfassten IP Bereiche für deine Webseite." />
+        <title>Detaillierte Besucherstatistik nach IP Bereich für VCounter #{detailStatBean.counterId} | VCounter</title>
+    </ui:define>
+    <ui:define name="site_content">
+        <div class="boxes_container">
+            <div class="widebox">
+                <h2>Detaillierte Besucherstatistik nach IP Bereich</h2>
+                <p class="interval_selector">
+                    <h:outputLink value="" styleClass="#{detailStatBean.interval == 'today' || detailStatBean.interval == null ? 'selected' : ''}">
+                        <h:outputText value='Heute'></h:outputText>
+                        <f:param name="id" value="#{detailStatBean.counterId}"></f:param>
+                        <f:param name="t" value="today"></f:param>
+                    </h:outputLink>
+                    <h:outputLink value="" styleClass="#{detailStatBean.interval == 'yesterday' ? 'selected' : ''}">
+                        <h:outputText value='Gestern'></h:outputText>
+                        <f:param name="id" value="#{detailStatBean.counterId}"></f:param>
+                        <f:param name="t" value="yesterday"></f:param>
+                    </h:outputLink>
+                    <h:outputLink value="" styleClass="#{detailStatBean.interval == 'cmonth' ? 'selected' : ''}">
+                        <h:outputText value='Aktueller Monat'></h:outputText>
+                        <f:param name="id" value="#{detailStatBean.counterId}"></f:param>
+                        <f:param name="t" value="cmonth"></f:param>
+                    </h:outputLink>
+                    <h:outputLink value="" styleClass="#{detailStatBean.interval == 'lmonth' ? 'selected' : ''}">
+                        <h:outputText value='Letzter Monat'></h:outputText>
+                        <f:param name="id" value="#{detailStatBean.counterId}"></f:param>
+                        <f:param name="t" value="lmonth"></f:param>
+                    </h:outputLink>
+                    <h:outputLink value="" styleClass="#{detailStatBean.interval == 'cyear' ? 'selected' : ''}">
+                        <h:outputText value='Aktuelles Jahr'></h:outputText>
+                        <f:param name="id" value="#{detailStatBean.counterId}"></f:param>
+                        <f:param name="t" value="cyear"></f:param>
+                    </h:outputLink>
+                    <h:outputLink value="" styleClass="#{detailStatBean.interval == 'lyear' ? 'selected' : ''}">
+                        <h:outputText value='Letztes Jahr'></h:outputText>
+                        <f:param name="id" value="#{detailStatBean.counterId}"></f:param>
+                        <f:param name="t" value="lyear"></f:param>
+                    </h:outputLink>
+                    <h:outputLink value="" styleClass="#{detailStatBean.interval == 'all' ? 'selected' : ''}">
+                        <h:outputText value='Gesamt'></h:outputText>
+                        <f:param name="id" value="#{detailStatBean.counterId}"></f:param>
+                        <f:param name="t" value="all"></f:param>
+                    </h:outputLink>
+                </p>
+                <h:outputText value="Für den ausgewählten Zeitraum wurden noch keine Daten erfasst" rendered="#{empty detailStatBean.topTenIPs}"></h:outputText>
+                <h:dataTable value="#{detailStatBean.topTenIPs}" var="u" headerClass="table_header" id="topips" class="tablesorter" rendered="#{not empty detailStatBean.topTenIPs}">
+                    <h:column>
+                        <f:facet name="header">IP Bereich</f:facet>
+                        <h:outputText value="#{u[0]}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Besucher</f:facet>
+                        <h:outputText value="#{u[1]}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Seitenaufrufe</f:facet>
+                        <h:outputText value="#{u[2]}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </div>
+        <div class="content">
+            <p style="text-align: center; padding: 0px;">
+                <h:outputLink value="stat.xhtml">
+                    <h:outputText value='Übersichtsseite für VCounter #{detailStatBean.counterId}'></h:outputText>
+                    <f:param name="id" value="#{detailStatBean.counterId}"></f:param>
+                </h:outputLink>
+            </p>
+        </div>
+    </ui:define>
+</ui:composition>
+

@@ -1,0 +1,47 @@
+<ui:composition template="./six_dark_template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="head">
+        <meta name="description" content="Über das Kontaktforumular kannst du ganz einfach Kontakt zum Team von VCounter.de aufnehmen." />
+        <title>Kontaktaufnahme | VCounter</title>
+    </ui:define>
+    <ui:define name="site_content">
+        <div class="content">
+            <h1>Kontaktaufnahme</h1>
+            <h:form>
+                <p>
+                    <span> </span>
+                    <h:messages></h:messages>
+                    <h:outputText id="result" value="#{contactBean.result}"></h:outputText>
+                </p>
+                <div class="form_settings">
+                    <p>
+                        <span>Name</span>
+                        <h:inputText value="#{contactBean.name}" required="true" requiredMessage="Bitte gebe deinen Namen ein."></h:inputText></p>
+                    <p>
+                        <span>Emailadresse</span>
+                        <h:inputText value="#{contactBean.email}" required="true" requiredMessage="Bitte gebe deine Emailadresse ein." validatorMessage="Bitte gebe eine gültige Emailadresse ein.">
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+                        </h:inputText>
+                    </p>
+                    <p>
+                        <span>Betreff</span>
+                        <h:inputText value="#{contactBean.subject}" required="true" requiredMessage="Bitte gebe einen Betreff ein."></h:inputText>
+                    </p>
+                    <p>
+                        <span>Nachricht</span>
+                        <h:inputTextarea class="textarea" rows="15" cols="120" value="#{contactBean.message}" required="true" requiredMessage="Bitte gebe eine Nachricht ein."></h:inputTextarea>
+                    </p>
+
+                    <p>
+                        <span> </span>
+                        <h:commandButton class="submit" type="submit" action="#{contactBean.submit()}" value="Senden" disabled="#{contactBean.disableSubmit}"></h:commandButton>
+                    </p>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
+
