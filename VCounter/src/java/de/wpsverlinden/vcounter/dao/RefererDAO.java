@@ -29,7 +29,7 @@ import javax.transaction.Transactional;
 @Stateless
 public class RefererDAO {
 
-    @PersistenceContext(unitName = "IPCounterPU")
+    @PersistenceContext(unitName = "VCounterPU")
     private EntityManager em;
 
     public RefererDAO() {

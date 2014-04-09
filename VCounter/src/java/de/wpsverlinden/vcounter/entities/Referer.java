@@ -84,6 +84,6 @@ public class Referer implements Serializable {
 
     @Override
     public String toString() {
-        return "de.wpsverlinden.ipcounter.Referer[ id=" + id + " ]";
+        return "de.wpsverlinden.vcounter.Referer[ id=" + id + " ]";
     }   
 }

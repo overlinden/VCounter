@@ -94,7 +94,7 @@ public class ContactBean {
         
         Properties properties = new Properties();
         properties.put("mail.transport.protocol", "smtp");
-        properties.put("mail.smtp.host", "localhost");
+        properties.put("mail.smtp.host", "YOUR_SMTP_SERVER");
         properties.put("mail.smtp.port", "25");
         properties.put("mail.smtp.auth", "true");
 
@@ -102,20 +102,20 @@ public class ContactBean {
                 new javax.mail.Authenticator() {
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("web2", "a23aq324es");
+                        return new PasswordAuthentication("YOUR_SMTP_USER", "YOUR_SMTP_PASSWORD");
                     }
                 });
         Message msg = new SMTPMessage(mailSession);
         try {
             msg.setSubject(getSubject());
-            msg.setRecipient(Message.RecipientType.TO, new InternetAddress("info@vcounter.de"));
+            msg.setRecipient(Message.RecipientType.TO, new InternetAddress("contact@yourdomain.de"));
             msg.setFrom(new InternetAddress(getName() + "<" + getEmail() + ">"));
             msg.setText(getMessage());
             msg.saveChanges();
             Transport.send(msg);
             result = "Deine Nachricht erfolgreich versendet.";
         } catch (MessagingException e) {
-            result = "Das Senden der Nachricht ist fehlgeschlagen. Bitte sende deine Anfrage direkt per Email an info@vcounter.de.";
+            result = "Das Senden der Nachricht ist fehlgeschlagen. Bitte sende deine Anfrage direkt per Email an contact@yourdomain.de.";
         }
 
         disableSubmit = true;

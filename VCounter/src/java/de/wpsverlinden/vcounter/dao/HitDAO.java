@@ -35,7 +35,7 @@ import javax.transaction.Transactional;
 @Stateless
 public class HitDAO {
 
-    @PersistenceContext(unitName = "IPCounterPU")
+    @PersistenceContext(unitName = "VCounterPU")
     private EntityManager em;
 
     @Inject

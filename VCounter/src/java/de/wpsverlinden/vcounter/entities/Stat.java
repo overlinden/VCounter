@@ -84,6 +84,6 @@ public class Stat implements Serializable {
 
     @Override
     public String toString() {
-        return "de.wpsverlinden.ipcounter.Stat[ counterId=" + counterId + " ]";
+        return "de.wpsverlinden.vcounter.Stat[ counterId=" + counterId + " ]";
     }
 }

@@ -84,6 +84,6 @@ public class UserAgent implements Serializable {
 
     @Override
     public String toString() {
-        return "de.wpsverlinden.ipcounter.UserAgent[ id=" + id + " ]";
+        return "de.wpsverlinden.vcounter.UserAgent[ id=" + id + " ]";
     }   
 }

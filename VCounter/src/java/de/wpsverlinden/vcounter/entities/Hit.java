@@ -150,6 +150,6 @@ public class Hit implements Serializable {
 
     @Override
     public String toString() {
-        return "de.wpsverlinden.ipcounter.Hit[ id=" + id + " ]";
+        return "de.wpsverlinden.vcounter.Hit[ id=" + id + " ]";
     } 
 }

@@ -33,7 +33,7 @@ import javax.transaction.Transactional;
 @Stateless
 public class StatDAO {
 
-    @PersistenceContext(unitName = "IPCounterPU")
+    @PersistenceContext(unitName = "VCounterPU")
     private EntityManager em;
 
     public StatDAO() {
