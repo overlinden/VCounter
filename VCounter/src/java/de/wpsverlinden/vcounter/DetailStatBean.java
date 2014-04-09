@@ -19,23 +19,24 @@ package de.wpsverlinden.vcounter;
 
 import de.wpsverlinden.vcounter.dao.*;
 import de.wpsverlinden.vcounter.entities.Stat;
+import de.wpsverlinden.vcounter.entities.TopTenDTO;
 import java.text.ParseException;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.inject.Inject;
 
 @RequestScoped
 @ManagedBean
 public class DetailStatBean {
 
-    @EJB
+    @Inject
     private HitDAO hdao;
 
-    @EJB
+    @Inject
     private StatDAO sdao;
 
     @ManagedProperty(value = "#{param.id}")
@@ -43,6 +44,10 @@ public class DetailStatBean {
     
     @ManagedProperty(value = "#{param.t}")
     private String interval;
+    
+    private List<Stat> last30, topTenHits, topTenVisits;
+    private List<TopTenDTO> topTenIPs, topTenUserAgents;
+    private List<String[]> topTenReferers;
 
     public String getInterval() {
         return interval;
@@ -61,62 +66,76 @@ public class DetailStatBean {
     }
 
     public List<Stat> getLast30() {
-        List<Stat> stats = sdao.getLast30DataFor(counterId);
-        for (Stat s : stats) {
-            try {
-                s.setDay(Constants.DAY_FORMAT_DEU.format(Constants.DAY_FORMAT.parse(s.getDay())));
-            } catch (ParseException ex) {
+        if (last30 == null) {
+            last30 = sdao.getLast30DataFor(counterId);
+            for (Stat s : last30) {
+                try {
+                    s.setDay(Constants.DAY_FORMAT_DEU.format(Constants.DAY_FORMAT.parse(s.getDay())));
+                } catch (ParseException ex) {
+                }
             }
         }
-        return stats;
+        return last30;
     }
 
     public List<Stat> getTopTenHits() {
-        List<Stat> stats = sdao.getTopTenHits(counterId, timeIntervalToConstrain());
-        for (Stat s : stats) {
-            try {
-                s.setDay(Constants.DAY_FORMAT_DEU.format(Constants.DAY_FORMAT.parse(s.getDay())));
-            } catch (ParseException ex) {
+        if (topTenHits == null) {
+            topTenHits = sdao.getTopTenHits(counterId, timeIntervalToConstrain());
+            for (Stat s : topTenHits) {
+                try {
+                    s.setDay(Constants.DAY_FORMAT_DEU.format(Constants.DAY_FORMAT.parse(s.getDay())));
+                } catch (ParseException ex) {
+                }
             }
         }
-        return stats;
+        return topTenHits;
     }
 
     public List<Stat> getTopTenVisits() {
-        List<Stat> stats = sdao.getTopTenVisits(counterId, timeIntervalToConstrain());
-        for (Stat s : stats) {
-            try {
-                s.setDay(Constants.DAY_FORMAT_DEU.format(Constants.DAY_FORMAT.parse(s.getDay())));
-            } catch (ParseException ex) {
+        if (topTenVisits == null) {
+            topTenVisits = sdao.getTopTenVisits(counterId, timeIntervalToConstrain());
+            for (Stat s : topTenVisits) {
+                try {
+                    s.setDay(Constants.DAY_FORMAT_DEU.format(Constants.DAY_FORMAT.parse(s.getDay())));
+                } catch (ParseException ex) {
+                }
             }
         }
-        return stats;
+        return topTenVisits;
     }
 
-    public List<String[]> getTopTenUserAgents() {
-        return hdao.getTopTenUserAgents(counterId, timeIntervalToConstrain());
+    public List<TopTenDTO> getTopTenUserAgents() {
+        if (topTenUserAgents == null) {
+            topTenUserAgents = hdao.getTopTenUserAgents(counterId, timeIntervalToConstrain());
+        }
+        return topTenUserAgents;
     }
 
     public List<String[]> getTopTenReferers() {
-        List<String[]> refs = hdao.getTopTenReferers(counterId, timeIntervalToConstrain());
-        List<String[]> ret = new LinkedList<String[]>();
-        for (Object[] in : refs) {
-            String[] out = new String[4];
-            if (((String) in[0]).length() > 60) {
-                out[0] = ((String) in[0]).substring(0, 59).concat("...");
-            } else {
-                out[0] = (String) in[0];
+        if (topTenReferers == null) {
+            List<TopTenDTO> refs = hdao.getTopTenReferers(counterId, timeIntervalToConstrain());
+            topTenReferers = new LinkedList<>();
+            for (TopTenDTO in : refs) {
+                String[] out = new String[4];
+                if (in.getName().length() > 60) {
+                    out[0] = (in.getName()).substring(0, 59).concat("...");
+                } else {
+                    out[0] = in.getName();
+                }
+                out[1] = in.getName();
+                out[2] = String.valueOf(in.getVisits());
+                out[3] = String.valueOf(in.getHits());
+                topTenReferers.add(out);
             }
-            out[1] = (String) in[1];
-            out[2] = ((Long) in[2]).toString();
-            out[3] = ((Long) in[3]).toString();
-            ret.add(out);
         }
-        return ret;
+        return topTenReferers;
     }
 
-    public List<String[]> getTopTenIPs() {
-        return hdao.getTopTenIPs(counterId, timeIntervalToConstrain());
+    public List<TopTenDTO> getTopTenIPs() {
+        if (topTenIPs == null) {
+            topTenIPs = hdao.getTopTenIPs(counterId, timeIntervalToConstrain());
+        }
+        return topTenIPs;
     }
 
     private String timeIntervalToConstrain() {

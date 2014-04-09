@@ -28,22 +28,31 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Index;
 
 @Entity
+@Immutable
 @Table(name = "Hits")
+@org.hibernate.annotations.Table(appliesTo = "Hits", 
+       fetch = FetchMode.JOIN, 
+       indexes = {
+            @Index(name = "CounterAndTime",columnNames = {"counter_id", "time_string"}),
+        })
 public class Hit implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "counter_id", updatable = false)
+    @Column(name = "counter_id", updatable = false, nullable = false)
     @NotNull
-    @Index(name = "counterId")
     private long counterId;
     
-    @Column(name = "time_string", updatable = false, length = 32)
+    @Column(name = "time_string", updatable = false, nullable = false, length = 32)
     @NotNull
     private String timestamp;
 
@@ -55,11 +64,11 @@ public class Hit implements Serializable {
     @NotNull
     private Referer referer;
     
-    @Column(updatable = false, length = 32)
+    @Column(updatable = false, nullable = false, length = 32)
     @NotNull
     private String sessionId;
     
-    @Column(updatable = false, length = 16)
+    @Column(updatable = false, nullable = false, length = 16)
     @NotNull
     private String IP;
 
@@ -141,6 +150,6 @@ public class Hit implements Serializable {
 
     @Override
     public String toString() {
-        return "de.wpsverlinden.vcounter.Hit[ id=" + id + " ]";
+        return "de.wpsverlinden.ipcounter.Hit[ id=" + id + " ]";
     } 
 }

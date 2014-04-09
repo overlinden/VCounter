@@ -26,29 +26,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Immutable;
 
 @Entity
+@Immutable
 @Table(name = "Referers")
 public class Referer implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
-    @Column(updatable = false, unique = true)
+    @Column(updatable = false, unique = true, nullable = false)
     private String url;
 
     @Override
     public int hashCode() {
-        return url.hashCode();
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
 
     public Referer() {
-    }
-
-    public Referer(String url) {
-        this.url = url;
     }
 
     public Long getId() {
@@ -74,7 +76,7 @@ public class Referer implements Serializable {
             return false;
         }
         Referer other = (Referer) object;
-        if ((this.url == null && other.url != null) || (this.url != null && !this.url.equals(other.url))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -82,6 +84,6 @@ public class Referer implements Serializable {
 
     @Override
     public String toString() {
-        return "de.wpsverlinden.vcounter.Referer[ url=" + url + " ]";
+        return "de.wpsverlinden.ipcounter.Referer[ id=" + id + " ]";
     }   
 }

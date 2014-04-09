@@ -24,7 +24,6 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import org.hibernate.annotations.Index;
 
 @Entity
 @IdClass(StatCompositeKey.class)
@@ -35,20 +34,19 @@ public class Stat implements Serializable {
 
     @Id
     @NotNull
-    @Column(name = "day_string", updatable = false, length = 32)
-    private String day;
+    @Column(name = "counter_id", updatable = false, nullable = false)
+    private long counterId;
 
     @Id
     @NotNull
-    @Column(name = "counter_id", updatable = false)
-    @Index(name = "counter_id")
-    private long counterId;
-
-    @Column(name = "hit_count")
+    @Column(name = "day_string", updatable = false, nullable = false, length = 32)
+    private String day;
+    
+    @Column(name = "hit_count", nullable = false)
     @NotNull
     private long hitCount;
 
-    @Column(name = "visitor_count")
+    @Column(name = "visitor_count", nullable = false)
     @NotNull
     private long visitorCount;
 
@@ -86,6 +84,6 @@ public class Stat implements Serializable {
 
     @Override
     public String toString() {
-        return "de.wpsverlinden.vcounter.Stat[ counterId=" + counterId + " ]";
+        return "de.wpsverlinden.ipcounter.Stat[ counterId=" + counterId + " ]";
     }
 }

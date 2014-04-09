@@ -26,29 +26,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Immutable;
 
 @Entity
+@Immutable
 @Table(name = "Useragents")
 public class UserAgent implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
-    @Column(updatable = false, unique = true)
+    @Column(updatable = false, unique = true, nullable = false)
     private String name;
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
 
     public UserAgent() {
-    }
-
-    public UserAgent(String name) {
-        this.name = name;
     }
 
     public Long getId() {
@@ -74,7 +76,7 @@ public class UserAgent implements Serializable {
             return false;
         }
         UserAgent other = (UserAgent) object;
-        if ((this.name == null && other.name != null) || (this.name != null && !this.name.equals(other.name))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -82,6 +84,6 @@ public class UserAgent implements Serializable {
 
     @Override
     public String toString() {
-        return "de.wpsverlinden.vcounter.UserAgent[ name=" + name + " ]";
+        return "de.wpsverlinden.ipcounter.UserAgent[ id=" + id + " ]";
     }   
 }

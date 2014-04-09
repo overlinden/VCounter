@@ -19,28 +19,26 @@
 package de.wpsverlinden.vcounter.dao;
 
 import de.wpsverlinden.vcounter.entities.UserAgent;
-import javax.ejb.Singleton;
 import javax.ejb.Stateless;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
-@Singleton
 @Stateless
-@Named
 public class UserAgentDAO {
 
-    @PersistenceContext(unitName = "VCounterPU")
+    @PersistenceContext(unitName = "IPCounterPU")
     private EntityManager em;
 
     public UserAgentDAO() {
     }
-
-    public synchronized UserAgent retrieveOrCreateUserAgent(String name) {
+    
+    @Transactional(Transactional.TxType.MANDATORY)
+    public UserAgent retrieveOrCreateUserAgent(String name) {
         UserAgent ua;
-        Query q = em.createQuery("SELECT ua FROM UserAgent ua WHERE ua.name LIKE :name");
+        TypedQuery<UserAgent> q = em.createQuery("SELECT ua FROM UserAgent ua WHERE ua.name LIKE :name", UserAgent.class);
         q.setParameter("name", name);
         try {
             ua = (UserAgent)q.getSingleResult();

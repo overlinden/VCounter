@@ -24,9 +24,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import javax.ejb.EJB;
-import javax.ejb.EJBTransactionRolledbackException;
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,10 +37,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "c", urlPatterns = {"/c"})
 public class C extends HttpServlet {
 
-    @EJB
+    @Inject
     StatDAO sdao;
 
-    @EJB
+    @Inject
     HitDAO hdao;
 
     @Override
@@ -53,12 +52,8 @@ public class C extends HttpServlet {
             int type = Integer.parseInt(request.getParameter("t"));
             int size = Integer.parseInt(request.getParameter("s"));
             
-            try {
-                sdao.registerStatFor(cId, session.isNew());
-                hdao.registerHitFor(cId, session, request);
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
+            sdao.registerStatFor(cId, session.isNew());
+            hdao.registerHitFor(cId, session, request); 
 
             ServletContext cntx = getServletContext();
             // Get the absolute path of the image

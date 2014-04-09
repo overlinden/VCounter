@@ -22,25 +22,24 @@ import de.wpsverlinden.vcounter.entities.Stat;
 import de.wpsverlinden.vcounter.entities.StatCompositeKey;
 import java.util.GregorianCalendar;
 import java.util.List;
-import javax.ejb.Singleton;
 import javax.ejb.Stateless;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
-@Singleton
 @Stateless
-@Named
 public class StatDAO {
 
-    @PersistenceContext(unitName = "VCounterPU")
+    @PersistenceContext(unitName = "IPCounterPU")
     private EntityManager em;
 
     public StatDAO() {
     }
 
+    @Transactional(Transactional.TxType.REQUIRED)
     public void registerStatFor(long counterId, boolean isNewVisitor) {
         String dayString = Constants.DAY_FORMAT.format(new GregorianCalendar().getTime());
         StatCompositeKey key = new StatCompositeKey();
@@ -83,18 +82,18 @@ public class StatDAO {
     }
 
     public List<Stat> getLast30DataFor(long counterId) {
-        Query q = em.createQuery("SELECT s FROM Stat s WHERE s.counterId = :counterId ORDER BY s.day DESC");
+        TypedQuery<Stat> q = em.createQuery("SELECT s FROM Stat s WHERE s.counterId = :counterId ORDER BY s.day DESC", Stat.class);
         q.setParameter("counterId", counterId);
         q.setMaxResults(30);
         return q.getResultList();
     }
 
     public List<Stat> getTopTenHits(long counterId, String interval) {
-        Query q;
+        TypedQuery<Stat> q;
         if (interval == null) {
-            q = em.createQuery("SELECT s FROM Stat s WHERE s.counterId = :counterId ORDER BY s.hitCount DESC");
+            q = em.createQuery("SELECT s FROM Stat s WHERE s.counterId = :counterId ORDER BY s.hitCount DESC", Stat.class);
         } else {
-            q = em.createQuery("SELECT s FROM Stat s WHERE s.counterId = :counterId AND s.day LIKE :interval ORDER BY s.hitCount DESC");
+            q = em.createQuery("SELECT s FROM Stat s WHERE s.counterId = :counterId AND s.day LIKE :interval ORDER BY s.hitCount DESC", Stat.class);
             q.setParameter("interval", interval);
         }
         q.setParameter("counterId", counterId);
@@ -103,11 +102,11 @@ public class StatDAO {
     }
 
     public List<Stat> getTopTenVisits(long counterId, String interval) {
-        Query q;
+        TypedQuery<Stat> q;
         if (interval == null) {
-            q = em.createQuery("SELECT s FROM Stat s WHERE s.counterId = :counterId ORDER BY s.visitorCount DESC");
+            q = em.createQuery("SELECT s FROM Stat s WHERE s.counterId = :counterId ORDER BY s.visitorCount DESC", Stat.class);
         } else {
-            q = em.createQuery("SELECT s FROM Stat s WHERE s.counterId = :counterId AND s.day LIKE :interval ORDER BY s.visitorCount DESC");
+            q = em.createQuery("SELECT s FROM Stat s WHERE s.counterId = :counterId AND s.day LIKE :interval ORDER BY s.visitorCount DESC", Stat.class);
             q.setParameter("interval", interval);
         }
         q.setParameter("counterId", counterId);

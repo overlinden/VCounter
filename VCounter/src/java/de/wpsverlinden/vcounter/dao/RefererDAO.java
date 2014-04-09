@@ -19,28 +19,26 @@
 package de.wpsverlinden.vcounter.dao;
 
 import de.wpsverlinden.vcounter.entities.Referer;
-import javax.ejb.Singleton;
 import javax.ejb.Stateless;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
-@Singleton
 @Stateless
-@Named
 public class RefererDAO {
 
-    @PersistenceContext(unitName = "VCounterPU")
+    @PersistenceContext(unitName = "IPCounterPU")
     private EntityManager em;
 
     public RefererDAO() {
     }
 
-    public synchronized Referer retrieveOrCreateReferer(String url) {
+    @Transactional(Transactional.TxType.MANDATORY)
+    public Referer retrieveOrCreateReferer(String url) {
         Referer ref;
-        Query q = em.createQuery("SELECT re FROM Referer re WHERE re.url LIKE :url");
+        TypedQuery<Referer> q = em.createQuery("SELECT re FROM Referer re WHERE re.url LIKE :url", Referer.class);
         q.setParameter("url", url);
         try {
             ref = (Referer)q.getSingleResult();
